@@ -7,8 +7,8 @@ services:
     build:
       context: .
     ports:
-      - "8000:8000"
+      - "7115:7115"
     volumes:
       - .:/app
-    command: gunicorn config.wsgi:application --bind 0.0.0.0:7115 --workers 4
+    command: gunicorn config.wsgi:application --preload --bind 0.0.0.0:7115 --workers 4
 #    command: python manage.py runserver 0.0.0.0:8000
