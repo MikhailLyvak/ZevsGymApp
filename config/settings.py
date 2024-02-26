@@ -31,7 +31,7 @@ SECRET_KEY = env.str("SECRET_KEY")
 DEBUG = env.list("ALLOWED_HOSTS")
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
-
+CSRF_TRUSTED_ORIGINS=['https://zevs.it-energy.net', 'http://zevs.it-energy.net']
 
 # Application definition
 
