@@ -50,13 +50,13 @@ class Exercise(models.Model):
 
 class DayExercise(models.Model):
     date = models.DateField(auto_now_add=True)
-    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, null=False, blank=False)
+    exercise = models.ForeignKey(
+        Exercise, on_delete=models.CASCADE, null=False, blank=False
+    )
+    comment = models.TextField(null=True, blank=True)
 
     class Meta:
-        ordering = [
-            "date",
-            "exercise"
-        ]
+        ordering = ["-date", "exercise"]
         verbose_name = "Впава на день"
         verbose_name_plural = "Вправи на день"
         indexes = [
@@ -76,19 +76,23 @@ IS_HURD = [
     ("Отказ", "Отказ"),
     ("Дуже складно", "Дуже складно"),
     ("Ідеально", "Ідеально"),
-    ("Задегко", "Задегко"),
+    ("Залегко", "Залегко"),
 ]
 
 
-
 class Repeat(models.Model):
-    day_exercise = models.ForeignKey(DayExercise, on_delete=models.CASCADE, null=False, blank=False)
+    day_exercise = models.ForeignKey(
+        DayExercise, on_delete=models.CASCADE, null=False, blank=False
+    )
     repeats = models.PositiveIntegerField(null=False, blank=False)
     weight = models.FloatField(null=False, blank=False)
-    hurd_type = models.CharField(max_length=255, choices=IS_HURD, null=False, blank=False)
-    
+    hurd_type = models.CharField(
+        max_length=255, choices=IS_HURD, null=False, blank=False
+    )
+
     class Meta:
         ordering = [
+            "id",
             "day_exercise",
             "repeats",
         ]
@@ -102,6 +106,6 @@ class Repeat(models.Model):
             models.Index(fields=["day_exercise"]),
             models.Index(fields=["repeats"]),
         ]
-    
+
     def __str__(self) -> str:
         return f"{self.day_exercise.exercise.name} | Повторів: {self.repeats} | Вага: {self.weight} кг"

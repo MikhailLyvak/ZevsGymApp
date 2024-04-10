@@ -1,4 +1,4 @@
-from environs import Env
+from environ import Env
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

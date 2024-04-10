@@ -28,7 +28,7 @@ class DayExerciseAdmin(admin.ModelAdmin):
 class ExerciseAdmin(admin.ModelAdmin):
     list_display = ("name", "muscle_type")
     list_filter = ("muscle_type",)
-    search_fields = ("name", "muscle_type")
+    search_fields = ("name", "muscle_type__name")
 
 
 admin.site.register(MuscleTypes)
