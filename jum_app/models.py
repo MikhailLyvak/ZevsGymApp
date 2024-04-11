@@ -89,6 +89,8 @@ class Repeat(models.Model):
     hurd_type = models.CharField(
         max_length=255, choices=IS_HURD, null=False, blank=False
     )
+    in_kg = models.FloatField(null=True, blank=True)
+    in_lb = models.FloatField(null=True, blank=True)
 
     class Meta:
         ordering = [
@@ -109,3 +111,10 @@ class Repeat(models.Model):
 
     def __str__(self) -> str:
         return f"{self.day_exercise.exercise.name} | Повторів: {self.repeats} | Вага: {self.weight} кг"
+    
+    def save(self, *args, **kwargs):
+        if self.in_lb is not None:
+            self.in_kg = round(self.in_lb * 0.45359237, 1)
+        elif self.in_kg is not None:
+            self.in_lb = round(self.in_kg * 2.20462262, 0)
+        super().save(*args, **kwargs)
